@@ -1,0 +1,45 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "0.9.0.0",
+    "parameters": {
+       "name":{
+           "type": "string",
+           "metadata": {
+               "description":"The name of the Data Lake Store account to create"
+           }
+       },
+       "location":{
+           "type": "string",
+           "allowedValues": [
+               "East US2",
+               "Centreal US",
+               "North Europe",
+               "west Europe"
+           ],
+           "defaultValue": "East US2",
+           "metadata": {
+               "description":"The location in which the resources will be created"
+           }
+       }
+
+    },
+    "variables": {
+        "newTier": "Consumption",
+        "apiVersion": "2016-11-01"
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-11-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "type": "Microsoft.DataLakeStore/accounts",
+            "properties": {
+                "newTier": "Consumption",
+                "encryptionState": "Enabled",
+                "encryptionConfig": {
+                    "type": "ServiceManaged"
+                }
+            }
+        }
+    ]
+}
